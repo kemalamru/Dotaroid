@@ -18,6 +18,4 @@ public class OpendotaRespository {
     public OpendotaRespository(OpendotaService opendotaService) {
         mOpendotaService = opendotaService;
     }
-
-
 }
