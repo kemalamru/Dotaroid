@@ -5,4 +5,8 @@ package com.kar.dotaroid.ui.hero.hero_profile;
  */
 
 public class HeroProfileViewModel {
+
+    public HeroProfileViewModel() {
+
+    }
 }

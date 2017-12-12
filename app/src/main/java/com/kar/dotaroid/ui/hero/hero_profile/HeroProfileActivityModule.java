@@ -20,7 +20,7 @@ public class HeroProfileActivityModule {
     }
 
     @Provides
-    ViewModelProvider.Factory heroProfileViewModelFactory(HeroProfileViewModel heroProfileViewModel) {
+    ViewModelProvider.Factory heroProfileViewModelProvider(HeroProfileViewModel heroProfileViewModel) {
         return new ViewModelProviderFactory<>(heroProfileViewModel);
     }
 }

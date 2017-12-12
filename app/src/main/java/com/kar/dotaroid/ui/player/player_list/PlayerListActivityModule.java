@@ -20,7 +20,7 @@ public class PlayerListActivityModule {
     }
 
     @Provides
-    ViewModelProvider.Factory playerListViewModelFactory(PlayerListViewModel playerListViewModel) {
+    ViewModelProvider.Factory playerListViewModelProvider(PlayerListViewModel playerListViewModel) {
         return new ViewModelProviderFactory<>(playerListViewModel);
     }
 }

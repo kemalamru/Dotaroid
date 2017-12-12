@@ -20,7 +20,7 @@ public class HeroListActivityModule {
     }
 
     @Provides
-    ViewModelProvider.Factory heroListViewModelFactory(HeroListViewModel heroListViewModel) {
+    ViewModelProvider.Factory heroListViewModelProvider(HeroListViewModel heroListViewModel) {
         return new ViewModelProviderFactory<>(heroListViewModel);
     }
 }

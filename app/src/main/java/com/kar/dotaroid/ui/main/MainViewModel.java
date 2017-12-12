@@ -5,4 +5,8 @@ package com.kar.dotaroid.ui.main;
  */
 
 public class MainViewModel {
+
+    public MainViewModel() {
+
+    }
 }

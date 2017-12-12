@@ -20,7 +20,7 @@ public class PlayerProfileActivityModule {
     }
 
     @Provides
-    ViewModelProvider.Factory playerProfileViewModelFactory(PlayerProfileViewModel playerProfileViewModel) {
+    ViewModelProvider.Factory playerProfileViewModelProvider(PlayerProfileViewModel playerProfileViewModel) {
         return new ViewModelProviderFactory<>(playerProfileViewModel);
     }
 }

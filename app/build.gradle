@@ -4,22 +4,26 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.kar.dotaroid"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    compileOptions.incremental = false
 
     dataBinding {
         enabled = true
@@ -53,11 +57,14 @@ dependencies {
 
     // Dagger
     compile "com.google.dagger:dagger:2.11"
+    compile "com.google.dagger:dagger-android-support:2.11"
     annotationProcessor "com.google.dagger:dagger-compiler:2.11"
     annotationProcessor "com.google.dagger:dagger-android-processor:2.11"
-    compile "com.google.dagger:dagger-android-support:2.11"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+
+    // Material Search Bar
+    compile 'com.github.mancj:MaterialSearchBar:0.7.5'
 }

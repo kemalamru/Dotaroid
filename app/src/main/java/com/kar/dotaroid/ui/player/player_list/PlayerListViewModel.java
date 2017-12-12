@@ -5,4 +5,8 @@ package com.kar.dotaroid.ui.player.player_list;
  */
 
 public class PlayerListViewModel {
+
+    public PlayerListViewModel() {
+
+    }
 }

@@ -5,4 +5,8 @@ package com.kar.dotaroid.ui.player.player_profile;
  */
 
 public class PlayerProfileViewModel {
+
+    public PlayerProfileViewModel() {
+
+    }
 }

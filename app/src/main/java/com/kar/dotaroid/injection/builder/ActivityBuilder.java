@@ -1,15 +1,15 @@
 package com.kar.dotaroid.injection.builder;
 
 import com.kar.dotaroid.ui.hero.hero_list.HeroListActivity;
-import com.kar.dotaroid.ui.hero.hero_list.HeroListViewModel;
+import com.kar.dotaroid.ui.hero.hero_list.HeroListActivityModule;
 import com.kar.dotaroid.ui.hero.hero_profile.HeroProfileActivity;
-import com.kar.dotaroid.ui.hero.hero_profile.HeroProfileViewModel;
+import com.kar.dotaroid.ui.hero.hero_profile.HeroProfileActivityModule;
 import com.kar.dotaroid.ui.main.MainActivity;
 import com.kar.dotaroid.ui.main.MainActivityModule;
 import com.kar.dotaroid.ui.player.player_list.PlayerListActivity;
-import com.kar.dotaroid.ui.player.player_list.PlayerListViewModel;
+import com.kar.dotaroid.ui.player.player_list.PlayerListActivityModule;
 import com.kar.dotaroid.ui.player.player_profile.PlayerProfileActivity;
-import com.kar.dotaroid.ui.player.player_profile.PlayerProfileViewModel;
+import com.kar.dotaroid.ui.player.player_profile.PlayerProfileActivityModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -24,15 +24,15 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {MainActivityModule.class})
     abstract MainActivity bindMainActivity();
 
-    @ContributesAndroidInjector(modules = {PlayerListViewModel.class})
+    @ContributesAndroidInjector(modules = {PlayerListActivityModule.class})
     abstract PlayerListActivity bindPlayerListActivity();
 
-    @ContributesAndroidInjector(modules = {PlayerProfileViewModel.class})
+    @ContributesAndroidInjector(modules = {PlayerProfileActivityModule.class})
     abstract PlayerProfileActivity bindPlayerProfileActivity();
 
-    @ContributesAndroidInjector(modules = {HeroListViewModel.class})
+    @ContributesAndroidInjector(modules = {HeroListActivityModule.class})
     abstract HeroListActivity bindHeroListActivity();
 
-    @ContributesAndroidInjector(modules = {HeroProfileViewModel.class})
+    @ContributesAndroidInjector(modules = {HeroProfileActivityModule.class})
     abstract HeroProfileActivity bindHeroProfileActivity();
 }

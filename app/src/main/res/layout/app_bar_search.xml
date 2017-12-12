@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="64dp" />
+
+        <com.mancj.materialsearchbar.MaterialSearchBar
+            android:id="@+id/search_bar_player"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/MaterialSearchBarLight"
+            app:mt_placeholder="Search Player"
+            android:layout_margin="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

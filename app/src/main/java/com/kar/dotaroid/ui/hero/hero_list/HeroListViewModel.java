@@ -5,4 +5,8 @@ package com.kar.dotaroid.ui.hero.hero_list;
  */
 
 public class HeroListViewModel {
+
+    public HeroListViewModel() {
+
+    }
 }

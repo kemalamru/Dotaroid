@@ -5,11 +5,14 @@ import android.os.Bundle;
 
 import com.kar.dotaroid.R;
 
+import dagger.android.AndroidInjection;
+
 public class HeroListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hero_list);
+        AndroidInjection.inject(this);
     }
 }
