@@ -1,10 +1,11 @@
 package com.kar.dotaroid.data.remote;
 
-import com.kar.dotaroid.data.model.PlayerSearchResult;
+import com.kar.dotaroid.data.model.PlayerSearchReponse;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.http.GET;
@@ -19,7 +20,7 @@ public interface OpendotaService {
     String ENDPOINT = "https://api.opendota.com/api/";
 
     @GET("search")
-    Observable<List<PlayerSearchResult>> getSearchPlayer(@Query("q") String playerName);
+    Single<List<PlayerSearchReponse>> searchPlayer(@Query("q") String playerName);
 
     /******** Helper class that sets up a new services *******/
     class Creator {
