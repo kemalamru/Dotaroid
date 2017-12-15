@@ -4,16 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
 
         <ImageView
             android:id="@+id/image_player"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@color/cardview_dark_background" />

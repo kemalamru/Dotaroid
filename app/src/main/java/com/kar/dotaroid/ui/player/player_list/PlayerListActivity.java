@@ -1,6 +1,7 @@
 package com.kar.dotaroid.ui.player.player_list;
 
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.provider.ContactsContract;
@@ -51,10 +52,10 @@ public class PlayerListActivity extends AppCompatActivity {
     PlayerListAdapter mAdapter;
 
     @Inject
-    PlayerListViewModel mViewModel;
+    ViewModelProvider.Factory mViewModelFactory;
 
     @Inject
-    ViewModelProviderFactory mViewModelFactory;
+    PlayerListViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +86,28 @@ public class PlayerListActivity extends AppCompatActivity {
         mSearchBar = mBinding.searchBar.searchBarPlayer;
         mSearchBar.enableSearch();
         mSearchBar.hideSuggestionsList();
+        mSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+            @Override
+            public void onSearchStateChanged(boolean enabled) {
+
+            }
+
+            @Override
+            public void onSearchConfirmed(CharSequence text) {
+                searchPlayer(text.toString());
+                mSearchBar.disableSearch();
+                Log.d(TAG, "Enter Search");
+            }
+
+            @Override
+            public void onButtonClicked(int buttonCode) {
+
+            }
+        });
         setSearchObservable(mSearchBar);
     }
 
-    // MaterialSearchBar OnSearchActionListener Implementation
+    // MaterialSearchBar Listener
 
     public static Observable<String> fromSearchView(MaterialSearchBar materialSearchBar) {
 
@@ -113,13 +132,12 @@ public class PlayerListActivity extends AppCompatActivity {
     }
 
     private void setSearchObservable(MaterialSearchBar searchBar) {
-        mDisposable.add(fromSearchView(searchBar)
+        PlayerListActivity.fromSearchView(searchBar)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .filter(text -> !text.isEmpty())
                 .distinctUntilChanged()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::searchPlayer));
+                .doOnNext(player -> Log.d(TAG, "Search Query: " + player))
+                .subscribe(playerName -> searchPlayer(playerName));
     }
 
     private void searchPlayer(String playerName) {
@@ -129,7 +147,7 @@ public class PlayerListActivity extends AppCompatActivity {
                 .subscribe(
                         playerList -> {
                             mAdapter.addPlayerList(playerList);
-                            Log.d(TAG, "Connection Succes");
+                            Log.d(TAG, "Connection Succes, example: " + playerList.get(0).getPersonaname());
                         },
                         throwable -> {
                             if (throwable instanceof HttpException) {

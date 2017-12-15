@@ -1,6 +1,7 @@
 package com.kar.dotaroid.ui.player.player_list;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.kar.dotaroid.data.model.PlayerSearchReponse;
 import com.kar.dotaroid.databinding.ItemPlayerListBinding;
 import com.kar.dotaroid.utils.UiUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +24,9 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     private List<PlayerSearchReponse> mPlayerList;
     PlayerListClickListener mClickListener;
 
-    public PlayerListAdapter () {}
+    public PlayerListAdapter () {
+        mPlayerList = new ArrayList<>();
+    }
 
     @Override
     public PlayerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,18 +47,15 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
     }
 
     public void addPlayerList(List<PlayerSearchReponse> playerList) {
-        mPlayerList.addAll(playerList);
-        notifyDataSetChanged();
-    }
-
-    public void clearPlayerList() {
         mPlayerList.clear();
+        mPlayerList.addAll(playerList);
+        this.notifyDataSetChanged();
+        Log.d("Player List Adapter", "Succes adding data");
     }
 
     public void SetOnItemClickListener(PlayerListClickListener clickListener) {
         this.mClickListener = clickListener;
     }
-
 
     class PlayerListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -69,8 +70,9 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         }
 
         public void bind(PlayerSearchReponse player) {
-            mPlayerNameTextView.setText(player.getPersonaname());
-            UiUtils.setImageUrl(mPlayerImage, player.getAvatarfull());
+            mPlayer = player;
+            mPlayerNameTextView.setText(mPlayer.getPersonaname());
+            UiUtils.setImageUrl(mPlayerImage, mPlayer.getAvatarfull());
         }
 
         @Override
