@@ -61,17 +61,20 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 
         private PlayerSearchReponse mPlayer;
         private TextView mPlayerNameTextView;
+        private TextView mPlayerIdTextView;
         private ImageView mPlayerImage;
 
         public PlayerListViewHolder(ItemPlayerListBinding binding) {
             super(binding.getRoot());
             mPlayerNameTextView = binding.tvPlayerName;
+            mPlayerIdTextView = binding.tvAccountId;
             mPlayerImage = binding.imagePlayer;
         }
 
         public void bind(PlayerSearchReponse player) {
             mPlayer = player;
             mPlayerNameTextView.setText(mPlayer.getPersonaname());
+            mPlayerIdTextView.setText("ID:" + mPlayer.getAccountId());
             UiUtils.setImageUrl(mPlayerImage, mPlayer.getAvatarfull());
         }
 

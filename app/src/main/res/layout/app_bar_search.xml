@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             style="@style/MaterialSearchBarLight"
-            app:mt_placeholder="Search Player"
+            app:mt_placeholder="Search Dota 2 Player"
             android:layout_margin="8dp"/>
 
     </android.support.constraint.ConstraintLayout>

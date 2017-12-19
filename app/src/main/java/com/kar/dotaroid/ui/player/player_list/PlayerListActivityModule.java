@@ -4,9 +4,6 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.kar.dotaroid.ViewModelProviderFactory;
 import com.kar.dotaroid.data.OpendotaRespository;
-import com.kar.dotaroid.data.model.PlayerSearchReponse;
-
-import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
