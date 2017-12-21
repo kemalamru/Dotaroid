@@ -3,7 +3,7 @@ package com.kar.dotaroid.ui.player.player_list;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.kar.dotaroid.ViewModelProviderFactory;
-import com.kar.dotaroid.data.OpendotaRespository;
+import com.kar.dotaroid.data.OpendotaRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,7 +17,7 @@ public class PlayerListActivityModule {
 
 
     @Provides
-    PlayerListViewModel providePlayerListViewModel(OpendotaRespository repository) {
+    PlayerListViewModel providePlayerListViewModel(OpendotaRepository repository) {
         return new PlayerListViewModel(repository);
     }
 

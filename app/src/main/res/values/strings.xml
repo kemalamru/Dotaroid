@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Dotaroid</string>
+
+    <string name="text_mmr">{MMR}</string>
+    <string name="text_win">{WIN}</string>
+    <string name="text_lose">{LOSE}</string>
+    <string name="text_win_percentage">{WIN %}</string>
+
 </resources>

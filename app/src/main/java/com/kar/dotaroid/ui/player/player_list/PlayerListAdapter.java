@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.kar.dotaroid.data.model.PlayerSearchReponse;
 import com.kar.dotaroid.databinding.ItemPlayerListBinding;
-import com.kar.dotaroid.utils.UiUtils;
+import com.kar.dotaroid.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,23 +59,19 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 
     class PlayerListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private PlayerSearchReponse mPlayer;
-        private TextView mPlayerNameTextView;
-        private TextView mPlayerIdTextView;
-        private ImageView mPlayerImage;
+        ItemPlayerListBinding mBinding;
+        PlayerSearchReponse mPlayer;
 
         public PlayerListViewHolder(ItemPlayerListBinding binding) {
             super(binding.getRoot());
-            mPlayerNameTextView = binding.tvPlayerName;
-            mPlayerIdTextView = binding.tvAccountId;
-            mPlayerImage = binding.imagePlayer;
+            mBinding = binding;
         }
 
         public void bind(PlayerSearchReponse player) {
             mPlayer = player;
-            mPlayerNameTextView.setText(mPlayer.getPersonaname());
-            mPlayerIdTextView.setText("ID:" + mPlayer.getAccountId());
-            UiUtils.setImageUrl(mPlayerImage, mPlayer.getAvatarfull());
+            mBinding.tvAccountId.setText(mPlayer.getAccountId());
+            mBinding.tvAccountName.setText(mPlayer.getPersonaname());
+            ImageUtils.setImageUrl(mBinding.imagePlayer, mPlayer.getAvatarfull());
         }
 
         @Override

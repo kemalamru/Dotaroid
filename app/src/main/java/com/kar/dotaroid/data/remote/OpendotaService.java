@@ -1,7 +1,9 @@
 package com.kar.dotaroid.data.remote;
 
 import com.kar.dotaroid.data.model.Player;
+import com.kar.dotaroid.data.model.PlayerMatch;
 import com.kar.dotaroid.data.model.PlayerSearchReponse;
+import com.kar.dotaroid.data.model.PlayerWinLose;
 
 import java.util.List;
 
@@ -24,15 +26,22 @@ public interface OpendotaService {
 
     // Search Dota2 Player
     @GET("search")
-    Single<List<PlayerSearchReponse>> searchPlayer(@Query("q") String playerName);
+    Observable<List<PlayerSearchReponse>> searchPlayer(@Query("q") String playerName);
 
     // Get Player Profile
-    @GET("players/{userId}")
-    Single<List<Player>> getPlayerProfile(@Path("userId") String userId);
+    @GET("players/{accountId}")
+    Observable<Player> getPlayerProfile(@Path("accountId") String accountId);
+
+    // Get Player Profile
+    @GET("players/{accountId}/matches")
+    Observable<List<PlayerMatch>> getPlayerMatch(@Path("accountId") String accountId);
+
+    // Get Player Win Lose
+    @GET("players/{accountId}/wl")
+    Observable<PlayerWinLose> getPlayerWinLose(@Path("accountId") String accountId);
 
 
-
-    /******** Helper class that sets up a new services *******/
+    // Helper class that sets up a new services
     class Creator {
 
         public static OpendotaService newOpendotaService() {

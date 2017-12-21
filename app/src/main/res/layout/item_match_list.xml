@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <ImageView
+            android:id="@+id/image_hero"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="{Win}"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_hero"
+            app:layout_constraintStart_toEndOf="@+id/image_hero"
+            app:layout_constraintTop_toTopOf="@+id/image_hero" />
+
+        <TextView
+            android:id="@+id/tv_kill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="{Kill}"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_hero"
+            app:layout_constraintStart_toEndOf="@+id/tv_result"
+            app:layout_constraintTop_toTopOf="@+id/image_hero" />
+
+        <TextView
+            android:id="@+id/tv_death"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="{Death}"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_hero"
+            app:layout_constraintStart_toEndOf="@+id/tv_kill"
+            app:layout_constraintTop_toTopOf="@+id/image_hero" />
+
+        <TextView
+            android:id="@+id/tv_assist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="{Assist}"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_hero"
+            app:layout_constraintStart_toEndOf="@+id/tv_death"
+            app:layout_constraintTop_toTopOf="@+id/image_hero" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -3,6 +3,7 @@ package com.kar.dotaroid.ui.player.player_profile;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.kar.dotaroid.ViewModelProviderFactory;
+import com.kar.dotaroid.data.OpendotaRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,12 +16,17 @@ import dagger.Provides;
 public class PlayerProfileActivityModule {
 
     @Provides
-    PlayerProfileViewModel providePlayerProfileViewModel() {
-        return new PlayerProfileViewModel();
+    PlayerProfileViewModel providePlayerProfileViewModel(OpendotaRepository repository) {
+        return new PlayerProfileViewModel(repository);
     }
 
     @Provides
     ViewModelProvider.Factory playerProfileViewModelProvider(PlayerProfileViewModel playerProfileViewModel) {
         return new ViewModelProviderFactory<>(playerProfileViewModel);
+    }
+
+    @Provides
+    PlayerProfileMatchAdapter providePlayerProfileAdapter() {
+        return new PlayerProfileMatchAdapter();
     }
 }

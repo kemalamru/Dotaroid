@@ -7,7 +7,7 @@ package com.kar.dotaroid.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WinLose {
+public class PlayerWinLose {
 
     @SerializedName("win")
     @Expose

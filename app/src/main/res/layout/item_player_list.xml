@@ -17,7 +17,7 @@
             app:srcCompat="@color/cardview_dark_background" />
 
         <TextView
-            android:id="@+id/tv_player_name"
+            android:id="@+id/tv_account_name"
             android:layout_width="wrap_content"
             android:layout_height="27dp"
             android:layout_marginStart="16dp"
