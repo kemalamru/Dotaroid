@@ -20,6 +20,7 @@ public class PlayerUtils {
                 player.getMmrEstimate().getEstimate(),
                 playerWinLose.getWin(),
                 playerWinLose.getLose(),
-                playerMatchList);
+                playerMatchList,
+                player.getProfile().getAvatar());
     }
 }

@@ -67,9 +67,9 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfil
 
             ImageUtils.setImageHeroSmall(mBinding.imageHero, match.getHeroId());
             mBinding.tvResult.setText(matchResult);
-            mBinding.tvKill.setText(match.getKills());
-            mBinding.tvDeath.setText(match.getDeaths());
-            mBinding.tvAssist.setText(match.getAssists());
+            mBinding.tvKill.setText(String.valueOf(match.getKills()));
+            mBinding.tvDeath.setText(String.valueOf(match.getDeaths()));
+            mBinding.tvAssist.setText(String.valueOf(match.getAssists()));
         }
     }
 }

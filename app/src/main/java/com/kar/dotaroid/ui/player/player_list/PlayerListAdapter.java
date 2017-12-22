@@ -53,7 +53,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         Log.d("Player List Adapter", "Succes adding data");
     }
 
-    public void SetOnItemClickListener(PlayerListClickListener clickListener) {
+    public void setOnItemClickListener(PlayerListClickListener clickListener) {
         this.mClickListener = clickListener;
     }
 
@@ -64,38 +64,24 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
 
         public PlayerListViewHolder(ItemPlayerListBinding binding) {
             super(binding.getRoot());
+            binding.getRoot().setOnClickListener(this);
             mBinding = binding;
         }
 
         public void bind(PlayerSearchReponse player) {
             mPlayer = player;
-            mBinding.tvAccountId.setText(mPlayer.getAccountId());
+            mBinding.tvAccountId.setText("ID: " + Integer.toString(mPlayer.getAccountId()));
             mBinding.tvAccountName.setText(mPlayer.getPersonaname());
             ImageUtils.setImageUrl(mBinding.imagePlayer, mPlayer.getAvatarfull());
         }
 
         @Override
         public void onClick(View view) {
-            mClickListener.onItemClick(mPlayer.getAccountId());
+            mClickListener.onItemClick(view, mPlayer.getAccountId());
         }
     }
 
     interface PlayerListClickListener {
-        void onItemClick(Integer accountId);
+        void onItemClick(View view, int accountId);
     }
 }
-
-//mUserSearchAdapter.SetOnItemClickListener(new UserSearchAdapter.OnItemClickListener() {
-//@Override
-//public void onItemClick(View v) {
-//        UserInterface.hideSearchKeyboard(mSearchBar);
-//
-//        int itemPosition = mRecyclerView.getChildLayoutPosition(v);
-//        Items items = mGithubUserList.get(itemPosition);
-//        String userLogin = items.getLogin();
-//
-//        Intent myIntent = new Intent(mContext, UserProfile.class);
-//        myIntent.putExtra("username",userLogin);
-//        mContext.startActivity(myIntent);
-//        }
-//        });

@@ -1,31 +1,32 @@
 package com.kar.dotaroid.ui.player.player_profile;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.kar.dotaroid.R;
-import com.kar.dotaroid.ViewModelProviderFactory;
-import com.kar.dotaroid.data.model.PlayerProfileDetail;
-import com.kar.dotaroid.databinding.ActivityHeroProfileBinding;
+import com.kar.dotaroid.databinding.ActivityPlayerProfileBinding;
+import com.kar.dotaroid.utils.ImageUtils;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 public class PlayerProfileActivity extends AppCompatActivity {
 
     private final String TAG = "PlayerProfileActivity";
-    public final String INTENT_ACCOUNT_ID = "intent_account_id";
+    public static final String INTENT_ACCOUNT_ID = "intent_account_id";
 
-    private ActivityHeroProfileBinding mBinding;
+    private ActivityPlayerProfileBinding mBinding;
 
     private CompositeDisposable mDisposable = new CompositeDisposable();
 
@@ -33,7 +34,7 @@ public class PlayerProfileActivity extends AppCompatActivity {
     PlayerProfileMatchAdapter mAdapter;
 
     @Inject
-    ViewModelProviderFactory mViewModelFactory;
+    ViewModelProvider.Factory mViewModelFactory;
 
     @Inject
     PlayerProfileViewModel mViewModel;
@@ -42,7 +43,6 @@ public class PlayerProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
-
         setUp();
     }
 
@@ -58,11 +58,11 @@ public class PlayerProfileActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PlayerProfileViewModel.class);
 
         String accountId = getIntent().getStringExtra(INTENT_ACCOUNT_ID);
-        performRecyclerViewSetups();
+        performRecyclerViewSetup();
         fetchData(accountId);
     }
 
-    private void performRecyclerViewSetups() {
+    private void performRecyclerViewSetup() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mBinding.rvPlayerMatches.setLayoutManager(linearLayoutManager);
         mBinding.rvPlayerMatches.setHasFixedSize(true);
@@ -71,27 +71,55 @@ public class PlayerProfileActivity extends AppCompatActivity {
     }
 
     private void fetchData(String accountId) {
-        mDisposable.add(mViewModel.fetchData(accountId)
+        fetchProfileData(accountId);
+        fetchWinLoseData(accountId);
+        fetchRecentMatchData(accountId);
+    }
+
+    private void fetchProfileData(String accountId) {
+        mDisposable.add(mViewModel.getPlayerProfile(accountId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    profileDetail -> {
-                        performDataBinding(profileDetail);
-                        Log.d(TAG, "Connection Succes, result: " + profileDetail.getPlayerName());
-                    },
-                    throwable -> {
-                        if (throwable instanceof HttpException) {
-                            String error = ((HttpException) throwable).response().errorBody().toString();
-                            Log.d(TAG, "Connection Error: " + error);
+                        player -> {
+                            mBinding.tvAccountName.setText(player.getProfile().getPersonaname());
+                            ImageUtils.setImageUrl(mBinding.imagePlayer, player.getProfile().getAvatarfull());
+                            mBinding.tvMmr.setText(Integer.toString(player.getMmrEstimate().getEstimate()));
+                        },
+                        throwable -> {
+                            Log.d(TAG, "Connection Error: " + throwable.getMessage());
                         }
-                    }
                 ));
     }
 
-    private void performDataBinding(PlayerProfileDetail profileDetail) {
-        mAdapter.addMatchList(profileDetail.getPlayerMatchList());
-        mBinding.tvAccountName.setText(profileDetail.getPlayerName());
-        mBinding.tvMmr.setText(profileDetail.getMmr());
-        mBinding.tvWin.setText(profileDetail.getWin());
-        mBinding.tvLose.setText(profileDetail.getLose());
-        mBinding.tvWinPercentage.setText(profileDetail.getWinPercentage());
+    private void fetchWinLoseData(String accountId) {
+        mDisposable.add(mViewModel.getPlayerWinLose(accountId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        playerWinLose -> {
+                            mBinding.tvWin.setText(Integer.toString(playerWinLose.getWin()));
+                            mBinding.tvLose.setText(Integer.toString(playerWinLose.getLose()));
+                            mBinding.tvWinPercentage.setText(playerWinLose.getWinPercentage());
+                        },
+                        throwable -> {
+                            Log.d(TAG, "Connection Error: " + throwable.getMessage());
+                        }
+                ));
+    }
+
+    private void fetchRecentMatchData(String accountId) {
+        mDisposable.add(mViewModel.getRecentMatch(accountId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .take(5)
+                .subscribe(
+                        matchList -> {
+                            mAdapter.addMatchList(matchList);
+                        },
+                        throwable -> {
+                            Log.d(TAG, "Connection Error: " + throwable.getMessage());
+                        }
+                ));
     }
 }

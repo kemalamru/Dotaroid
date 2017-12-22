@@ -12,7 +12,7 @@ public class PlayerMatch {
 
     @SerializedName("match_id")
     @Expose
-    private Integer matchId;
+    private Long matchId;
 
     @SerializedName("player_slot")
     @Expose
@@ -70,11 +70,11 @@ public class PlayerMatch {
     @Expose
     private Object partySize;
 
-    public Integer getMatchId() {
+    public Long getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(Integer matchId) {
+    public void setMatchId(Long matchId) {
         this.matchId = matchId;
     }
 

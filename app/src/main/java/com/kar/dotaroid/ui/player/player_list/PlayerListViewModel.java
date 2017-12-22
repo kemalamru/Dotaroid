@@ -7,8 +7,6 @@ import com.kar.dotaroid.data.model.PlayerSearchReponse;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Kemal Amru Ramadhan on 12/12/17.
@@ -23,8 +21,6 @@ public class PlayerListViewModel extends ViewModel {
     }
 
     public Observable<List<PlayerSearchReponse>> searchPlayer(String playerName) {
-        return mRepository.searchPlayer(playerName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        return mRepository.searchPlayer(playerName);
     }
 }

@@ -6,7 +6,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="6dp">
 
         <ImageView
             android:id="@+id/image_hero"
@@ -24,7 +24,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="{Win}"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/image_hero"
             app:layout_constraintStart_toEndOf="@+id/image_hero"
             app:layout_constraintTop_toTopOf="@+id/image_hero" />
@@ -37,7 +37,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="{Kill}"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/image_hero"
             app:layout_constraintStart_toEndOf="@+id/tv_result"
             app:layout_constraintTop_toTopOf="@+id/image_hero" />
@@ -47,10 +47,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:text="{Death}"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/image_hero"
             app:layout_constraintStart_toEndOf="@+id/tv_kill"
             app:layout_constraintTop_toTopOf="@+id/image_hero" />
@@ -60,10 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:text="{Assist}"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/image_hero"
             app:layout_constraintStart_toEndOf="@+id/tv_death"
             app:layout_constraintTop_toTopOf="@+id/image_hero" />

@@ -7,6 +7,8 @@ package com.kar.dotaroid.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DecimalFormat;
+
 public class PlayerWinLose {
 
     @SerializedName("win")
@@ -21,15 +23,13 @@ public class PlayerWinLose {
         return win;
     }
 
-    public void setWin(Integer win) {
-        this.win = win;
-    }
-
     public Integer getLose() {
         return lose;
     }
 
-    public void setLose(Integer lose) {
-        this.lose = lose;
+    public String getWinPercentage() {
+        DecimalFormat df2 = new DecimalFormat(".##");
+        double winPercentage = (double) win / ((double) win + (double) lose) * 100;
+        return df2.format(winPercentage) + "%";
     }
 }

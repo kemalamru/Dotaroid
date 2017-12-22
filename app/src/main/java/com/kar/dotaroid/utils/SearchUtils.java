@@ -2,7 +2,6 @@ package com.kar.dotaroid.utils;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -50,9 +49,8 @@ public class SearchUtils {
         });
 
         return subject
-                .debounce(300, TimeUnit.MILLISECONDS)
-                .filter(query -> query.length() > 1)
+                .debounce(1, TimeUnit.SECONDS)
+                .filter(query -> query.length() > 0)
                 .distinctUntilChanged();
-//                .doOnNext(query -> Log.d("Player Search", "Search Query: " + query));
     }
 }

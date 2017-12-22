@@ -41,7 +41,6 @@ public class OpendotaRepository {
     }
 
     public Observable<List<PlayerMatch>> getPlayerMatch(String accountId) {
-        return mOpendotaService.getPlayerMatch(accountId)
-                .take(5);
+        return mOpendotaService.getPlayerMatch(accountId);
     }
 }

@@ -13,13 +13,23 @@ public class PlayerProfileDetail {
     private Integer win;
     private Integer lose;
     private List<PlayerMatch> playerMatchList;
+    private String imageUrl;
 
-    public PlayerProfileDetail(String playerName, Integer mmr, Integer win, Integer lose, List<PlayerMatch> playerMatchList) {
+    public PlayerProfileDetail(String playerName, Integer mmr, Integer win, Integer lose, List<PlayerMatch> playerMatchList, String imageUrl) {
         this.playerName = playerName;
         this.mmr = mmr;
         this.win = win;
         this.lose = lose;
         this.playerMatchList = playerMatchList;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPlayerName() {

@@ -2,23 +2,27 @@ package com.kar.dotaroid.ui.player.player_list;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.kar.dotaroid.R;
 import com.kar.dotaroid.databinding.ActivityPlayerListBinding;
+import com.kar.dotaroid.ui.player.player_profile.PlayerProfileActivity;
 import com.kar.dotaroid.utils.SearchUtils;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 public class PlayerListActivity extends AppCompatActivity {
@@ -47,6 +51,12 @@ public class PlayerListActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setSearchListener(mBinding.searchBar.searchBarPlayer);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         mDisposable.clear();
@@ -58,22 +68,28 @@ public class PlayerListActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PlayerListViewModel.class);
 
         performMaterialSearchBarSetup();
-        performRecyclerViewSetups();
+        performRecyclerViewSetup();
     }
 
-    private void performRecyclerViewSetups() {
+    private void performRecyclerViewSetup() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mBinding.rvPlayerList.setLayoutManager(linearLayoutManager);
         mBinding.rvPlayerList.setHasFixedSize(true);
         mBinding.rvPlayerList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mBinding.rvPlayerList.setAdapter(mAdapter);
+
+        PlayerListAdapter.PlayerListClickListener listener = (View view, int accountId) -> {
+            Intent intent = new Intent(this, PlayerProfileActivity.class);
+            intent.putExtra(PlayerProfileActivity.INTENT_ACCOUNT_ID, Integer.toString(accountId));
+            this.startActivity(intent);
+        };
+        mAdapter.setOnItemClickListener(listener);
     }
 
     private void performMaterialSearchBarSetup() {
         mSearchBar = mBinding.searchBar.searchBarPlayer;
         mSearchBar.enableSearch();
         mSearchBar.hideSuggestionsList();
-        setSearchListener(mSearchBar);
     }
 
     private void setSearchListener(MaterialSearchBar searchBar) {
@@ -84,6 +100,8 @@ public class PlayerListActivity extends AppCompatActivity {
 
     private void searchPlayer(String playerName) {
         mDisposable.add(mViewModel.searchPlayer(playerName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(query -> Log.d(TAG, "Connect Query: " + query))
                 .subscribe(
                         playerList -> {
