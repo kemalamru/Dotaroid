@@ -112,7 +112,6 @@ public class PlayerProfileActivity extends AppCompatActivity {
         mDisposable.add(mViewModel.getRecentMatch(accountId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .take(5)
                 .subscribe(
                         matchList -> {
                             mAdapter.addMatchList(matchList);

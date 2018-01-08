@@ -44,7 +44,12 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfil
 
     public void addMatchList(List<PlayerMatch> matchList) {
         mMatchList.clear();
-        mMatchList.addAll(matchList);
+        if (matchList.size() > 4) {
+            mMatchList.addAll(new ArrayList<>(matchList.subList(0, 5)));
+        } else {
+            mMatchList.addAll(matchList);
+        }
+
         this.notifyDataSetChanged();
         Log.d("Player Match Adapter", "Succes adding data");
     }

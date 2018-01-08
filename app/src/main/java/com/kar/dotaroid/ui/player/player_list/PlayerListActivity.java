@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.kar.dotaroid.R;
+import com.kar.dotaroid.data.model.PlayerSearchReponse;
 import com.kar.dotaroid.databinding.ActivityPlayerListBinding;
 import com.kar.dotaroid.ui.player.player_profile.PlayerProfileActivity;
-import com.kar.dotaroid.utils.SearchUtils;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,7 +27,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
-public class PlayerListActivity extends AppCompatActivity {
+public class PlayerListActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
 
     private final String TAG = "PlayerListActivity";
 
@@ -47,28 +49,25 @@ public class PlayerListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_list);
-        setUp();
+
+        AndroidInjection.inject(this);
+
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_player_list);
+        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PlayerListViewModel.class);
+
+        performMaterialSearchBarSetup();
+        performRecyclerViewSetup();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setSearchListener(mBinding.searchBar.searchBarPlayer);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mDisposable.clear();
-    }
-
-    private void setUp() {
-        AndroidInjection.inject(this);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_player_list);
-        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(PlayerListViewModel.class);
-
-        performMaterialSearchBarSetup();
-        performRecyclerViewSetup();
     }
 
     private void performRecyclerViewSetup() {
@@ -83,6 +82,7 @@ public class PlayerListActivity extends AppCompatActivity {
             intent.putExtra(PlayerProfileActivity.INTENT_ACCOUNT_ID, Integer.toString(accountId));
             this.startActivity(intent);
         };
+
         mAdapter.setOnItemClickListener(listener);
     }
 
@@ -90,22 +90,32 @@ public class PlayerListActivity extends AppCompatActivity {
         mSearchBar = mBinding.searchBar.searchBarPlayer;
         mSearchBar.enableSearch();
         mSearchBar.hideSuggestionsList();
+        mSearchBar.setOnSearchActionListener(this);
     }
 
-    private void setSearchListener(MaterialSearchBar searchBar) {
-        mDisposable.add(SearchUtils.setSearchListener(searchBar)
-                .doOnNext(query -> Log.d(TAG, "Search Query: " + query))
-                .subscribe(query -> searchPlayer(query)));
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+        searchPlayer(text.toString());
+        mSearchBar.disableSearch();
+    }
+
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
     }
 
     private void searchPlayer(String playerName) {
         mDisposable.add(mViewModel.searchPlayer(playerName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(query -> Log.d(TAG, "Connect Query: " + query))
+                .doOnSubscribe(__ -> showProgressBar())
                 .subscribe(
                         playerList -> {
-                            mAdapter.addPlayerList(playerList);
+                            hideProgressBar();
+                            showResult(playerList);
                             Log.d(TAG, "Connection Succes, Data Length: " + playerList.size());
                         },
                         throwable -> {
@@ -115,5 +125,19 @@ public class PlayerListActivity extends AppCompatActivity {
                             }
                         }
                 ));
+    }
+
+    private void showResult(List<PlayerSearchReponse> playerList) {
+        mAdapter.addPlayerList(playerList);
+    }
+
+    private void showProgressBar() {
+        mBinding.rvPlayerList.setVisibility(View.GONE);
+        mBinding.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar() {
+        mBinding.progressBar.setVisibility(View.GONE);
+        mBinding.rvPlayerList.setVisibility(View.VISIBLE);
     }
 }
