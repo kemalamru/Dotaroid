@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 
-public class PlayerMatch {
+public class PlayerMatches {
 
     @SerializedName("match_id")
     @Expose

@@ -4,7 +4,7 @@ package com.kar.dotaroid.utils;
  * Created by Kemal Amru Ramadhan on 12/21/17.
  */
 
-public class HeroUtils {
+public class HeroUtil {
 
     static String[] heroList = new String[] {
             "antimage",

@@ -1,7 +1,7 @@
 package com.kar.dotaroid.data;
 
 import com.kar.dotaroid.data.model.Player;
-import com.kar.dotaroid.data.model.PlayerMatch;
+import com.kar.dotaroid.data.model.PlayerMatches;
 import com.kar.dotaroid.data.model.PlayerSearchReponse;
 import com.kar.dotaroid.data.model.PlayerWinLose;
 import com.kar.dotaroid.data.remote.OpendotaService;
@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 /**
  * Created by Kemal Amru Ramadhan on 12/11/17.
@@ -40,7 +39,7 @@ public class OpendotaRepository {
         return mOpendotaService.getPlayerWinLose(accountId);
     }
 
-    public Observable<List<PlayerMatch>> getPlayerMatch(String accountId) {
+    public Observable<List<PlayerMatches>> getPlayerMatch(String accountId) {
         return mOpendotaService.getPlayerMatch(accountId);
     }
 }

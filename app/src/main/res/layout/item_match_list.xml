@@ -20,9 +20,7 @@
         android:id="@+id/tv_match_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:textSize="16sp"
         android:text="{Win}"
         app:layout_constraintBottom_toBottomOf="@id/iv_match_hero"
@@ -33,39 +31,30 @@
         android:id="@+id/tv_match_kill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:textSize="16sp"
         android:text="{Kill}"
-        app:layout_constraintBottom_toBottomOf="@id/iv_match_hero"
-        app:layout_constraintStart_toEndOf="@id/tv_match_result"
-        app:layout_constraintTop_toTopOf="@id/iv_match_hero" />
+        app:layout_constraintEnd_toStartOf="@id/tv_match_death"
+        app:layout_constraintTop_toTopOf="@id/tv_match_result" />
 
     <TextView
         android:id="@+id/tv_match_death"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="38dp"
         android:textSize="16sp"
         android:text="{Death}"
-        app:layout_constraintBottom_toBottomOf="@id/iv_match_hero"
-        app:layout_constraintStart_toEndOf="@id/tv_match_kill"
-        app:layout_constraintTop_toTopOf="@id/iv_match_hero" />
+        app:layout_constraintEnd_toStartOf="@id/tv_match_assist"
+        app:layout_constraintTop_toTopOf="@id/tv_match_kill" />
 
     <TextView
         android:id="@+id/tv_match_assist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:textSize="16sp"
         android:text="{Assist}"
-        app:layout_constraintBottom_toBottomOf="@id/iv_match_hero"
-        app:layout_constraintStart_toEndOf="@id/tv_match_death"
-        app:layout_constraintTop_toTopOf="@id/iv_match_hero" />
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_match_death" />
 
 </android.support.constraint.ConstraintLayout>

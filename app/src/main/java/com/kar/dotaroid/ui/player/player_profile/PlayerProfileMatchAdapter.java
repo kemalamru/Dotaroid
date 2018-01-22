@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kar.dotaroid.R;
-import com.kar.dotaroid.data.model.PlayerMatch;
-import com.kar.dotaroid.utils.ImageUtils;
+import com.kar.dotaroid.data.model.PlayerMatches;
+import com.kar.dotaroid.utils.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
-    private List<PlayerMatch> mMatchList;
+    private List<PlayerMatches> mMatchList;
 
     public PlayerProfileMatchAdapter () {
         mMatchList = new ArrayList<>();
@@ -37,7 +37,7 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        PlayerMatch match = mMatchList.get(position);
+        PlayerMatches match = mMatchList.get(position);
         ((PlayerMatchViewHolder) holder).bind(match);
     }
 
@@ -46,9 +46,9 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<RecyclerView
         return mMatchList.size();
     }
 
-    public void addMatchList(List<PlayerMatch> matchList) {
-        if (matchList.size() > 4) {
-            mMatchList.addAll(new ArrayList<>(matchList.subList(0, 5)));
+    public void addMatchList(List<PlayerMatches> matchList) {
+        if (matchList.size() > 3) {
+            mMatchList.addAll(new ArrayList<>(matchList.subList(0, 4)));
         } else {
             mMatchList.addAll(matchList);
         }
@@ -75,14 +75,14 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<RecyclerView
             mTvMatchAssist = itemView.findViewById(R.id.tv_match_assist);
         }
 
-        public void bind(PlayerMatch match) {
+        public void bind(PlayerMatches match) {
             int playerSlot = match.getPlayerSlot();
             boolean RadiantWin = match.getRadiantWin();
             String matchResult = "Lose";
             if (playerSlot < 100 && RadiantWin) matchResult = "Win";
             if (playerSlot > 100 && !RadiantWin) matchResult = "Win";
 
-            ImageUtils.setImageHeroSmall(mIvMatchHero, match.getHeroId());
+            ImageUtil.setImageHeroSmall(mIvMatchHero, match.getHeroId());
             mTvMatchResult.setText(matchResult);
             mTvMatchKill.setText(String.valueOf(match.getKills()));
             mTvMatchDeath.setText(String.valueOf(match.getDeaths()));

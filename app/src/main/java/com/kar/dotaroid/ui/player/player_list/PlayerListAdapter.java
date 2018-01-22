@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.kar.dotaroid.R;
 import com.kar.dotaroid.data.model.PlayerSearchReponse;
-import com.kar.dotaroid.utils.ImageUtils;
+import com.kar.dotaroid.utils.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +87,7 @@ public class PlayerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public void bind(PlayerSearchReponse player) {
             mTvPlayerName.setText(player.getPersonaname());
             mTvPlayerId.setText("ID: " + String.valueOf(player.getAccountId()));
-            ImageUtils.setImageUrl(mIvPlayer, player.getAvatarfull());
+            ImageUtil.setImageUrl(mIvPlayer, player.getAvatarfull());
         }
     }
 }
