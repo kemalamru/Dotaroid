@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+
+<android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="62dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/iv_player"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/tv_player_name"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textSize="15sp"
+        android:text="{Player Name}"
+        app:layout_constraintStart_toEndOf="@id/iv_player"
+        app:layout_constraintTop_toTopOf="@id/iv_player" />
+
+    <TextView
+        android:id="@+id/tv_player_id"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="16dp"
+        android:text="{Player ID}"
+        app:layout_constraintBottom_toBottomOf="@id/iv_player"
+        app:layout_constraintStart_toEndOf="@id/iv_player" />
 
-        <ImageView
-            android:id="@+id/image_player"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/cardview_dark_background" />
+</android.support.constraint.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_account_name"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="{Player Name}"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/image_player"
-            app:layout_constraintTop_toTopOf="@+id/image_player" />
-
-        <TextView
-            android:id="@+id/tv_account_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/image_player"
-            app:layout_constraintStart_toEndOf="@+id/image_player" />
-
-    </android.support.constraint.ConstraintLayout>
-</layout>

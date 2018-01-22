@@ -28,8 +28,8 @@ public class OpendotaRepository {
         mOpendotaService = opendotaService;
     }
 
-    public Observable<List<PlayerSearchReponse>> searchPlayer(String playerName) {
-        return mOpendotaService.searchPlayer(playerName);
+    public Observable<List<PlayerSearchReponse>> searchPlayer(String searchQuery) {
+        return mOpendotaService.searchPlayer(searchQuery);
     }
 
     public Observable<Player> getPlayerProfile(String accountId) {

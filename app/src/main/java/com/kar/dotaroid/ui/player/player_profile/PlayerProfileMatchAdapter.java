@@ -3,10 +3,13 @@ package com.kar.dotaroid.ui.player.player_profile;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.kar.dotaroid.R;
 import com.kar.dotaroid.data.model.PlayerMatch;
-import com.kar.dotaroid.databinding.ItemMatchListBinding;
 import com.kar.dotaroid.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ import java.util.List;
  * Created by Kemal Amru Ramadhan on 12/20/17.
  */
 
-public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfileMatchAdapter.PlayerMatchViewHolder>  {
+public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private List<PlayerMatch> mMatchList;
 
@@ -25,16 +28,17 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfil
     }
 
     @Override
-    public PlayerProfileMatchAdapter.PlayerMatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemMatchListBinding binding = ItemMatchListBinding.inflate(layoutInflater, parent, false);
-        return new PlayerProfileMatchAdapter.PlayerMatchViewHolder(binding);
+        View view = layoutInflater.inflate(R.layout.item_match_list, parent, false);
+
+        return new PlayerMatchViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PlayerProfileMatchAdapter.PlayerMatchViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         PlayerMatch match = mMatchList.get(position);
-        holder.bind(match);
+        ((PlayerMatchViewHolder) holder).bind(match);
     }
 
     @Override
@@ -43,7 +47,6 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfil
     }
 
     public void addMatchList(List<PlayerMatch> matchList) {
-        mMatchList.clear();
         if (matchList.size() > 4) {
             mMatchList.addAll(new ArrayList<>(matchList.subList(0, 5)));
         } else {
@@ -56,11 +59,20 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfil
 
     class PlayerMatchViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemMatchListBinding mBinding;
+        private ImageView mIvMatchHero;
+        private TextView mTvMatchResult;
+        private TextView mTvMatchKill;
+        private TextView mTvMatchDeath;
+        private TextView mTvMatchAssist;
 
-        public PlayerMatchViewHolder(ItemMatchListBinding binding) {
-            super(binding.getRoot());
-            mBinding = binding;
+        public PlayerMatchViewHolder(View itemView) {
+            super(itemView);
+
+            mIvMatchHero = itemView.findViewById(R.id.iv_match_hero);
+            mTvMatchResult = itemView.findViewById(R.id.tv_match_result);
+            mTvMatchKill = itemView.findViewById(R.id.tv_match_kill);
+            mTvMatchDeath = itemView.findViewById(R.id.tv_match_death);
+            mTvMatchAssist = itemView.findViewById(R.id.tv_match_assist);
         }
 
         public void bind(PlayerMatch match) {
@@ -70,11 +82,11 @@ public class PlayerProfileMatchAdapter extends RecyclerView.Adapter<PlayerProfil
             if (playerSlot < 100 && RadiantWin) matchResult = "Win";
             if (playerSlot > 100 && !RadiantWin) matchResult = "Win";
 
-            ImageUtils.setImageHeroSmall(mBinding.imageHero, match.getHeroId());
-            mBinding.tvResult.setText(matchResult);
-            mBinding.tvKill.setText(String.valueOf(match.getKills()));
-            mBinding.tvDeath.setText(String.valueOf(match.getDeaths()));
-            mBinding.tvAssist.setText(String.valueOf(match.getAssists()));
+            ImageUtils.setImageHeroSmall(mIvMatchHero, match.getHeroId());
+            mTvMatchResult.setText(matchResult);
+            mTvMatchKill.setText(String.valueOf(match.getKills()));
+            mTvMatchDeath.setText(String.valueOf(match.getDeaths()));
+            mTvMatchAssist.setText(String.valueOf(match.getAssists()));
         }
     }
 }

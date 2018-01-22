@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kar.dotaroid.R;
 import com.kar.dotaroid.data.model.PlayerSearchReponse;
-import com.kar.dotaroid.databinding.ItemPlayerListBinding;
 import com.kar.dotaroid.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -19,26 +19,25 @@ import java.util.List;
  * Created by Kemal Amru Ramadhan on 12/13/17.
  */
 
-public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.PlayerListViewHolder> {
+public class PlayerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<PlayerSearchReponse> mPlayerList;
-    PlayerListClickListener mClickListener;
 
     public PlayerListAdapter () {
         mPlayerList = new ArrayList<>();
     }
 
     @Override
-    public PlayerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemPlayerListBinding binding = ItemPlayerListBinding.inflate(layoutInflater, parent, false);
-        return new PlayerListViewHolder(binding);
+        View view = layoutInflater.inflate(R.layout.item_player_list, parent, false);
+        return new PlayerListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PlayerListViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         PlayerSearchReponse player = mPlayerList.get(position);
-        holder.bind(player);
+        ((PlayerListViewHolder) holder).bind(player);
     }
 
     @Override
@@ -53,35 +52,42 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Pl
         Log.d("Player List Adapter", "Succes adding data");
     }
 
+    private PlayerListClickListener mClickListener;
+
     public void setOnItemClickListener(PlayerListClickListener clickListener) {
         this.mClickListener = clickListener;
     }
 
-    class PlayerListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    interface PlayerListClickListener {
+        void onItemClick(View view, int accountId);
+    }
 
-        ItemPlayerListBinding mBinding;
-        PlayerSearchReponse mPlayer;
+    class PlayerListViewHolder extends RecyclerView.ViewHolder {
 
-        public PlayerListViewHolder(ItemPlayerListBinding binding) {
-            super(binding.getRoot());
-            binding.getRoot().setOnClickListener(this);
-            mBinding = binding;
+        private TextView mTvPlayerName;
+        private TextView mTvPlayerId;
+        private ImageView mIvPlayer;
+
+        public PlayerListViewHolder(View itemView) {
+            super(itemView);
+            mTvPlayerName = itemView.findViewById(R.id.tv_player_name);
+            mTvPlayerId = itemView.findViewById(R.id.tv_player_id);
+            mIvPlayer = itemView.findViewById(R.id.iv_player);
+
+            itemView.setOnClickListener(view -> {
+                if (mClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        mClickListener.onItemClick(itemView, mPlayerList.get(position).getAccountId());
+                    }
+                }
+            });
         }
 
         public void bind(PlayerSearchReponse player) {
-            mPlayer = player;
-            mBinding.tvAccountId.setText("ID: " + Integer.toString(mPlayer.getAccountId()));
-            mBinding.tvAccountName.setText(mPlayer.getPersonaname());
-            ImageUtils.setImageUrl(mBinding.imagePlayer, mPlayer.getAvatarfull());
+            mTvPlayerName.setText(player.getPersonaname());
+            mTvPlayerId.setText("ID: " + String.valueOf(player.getAccountId()));
+            ImageUtils.setImageUrl(mIvPlayer, player.getAvatarfull());
         }
-
-        @Override
-        public void onClick(View view) {
-            mClickListener.onItemClick(view, mPlayer.getAccountId());
-        }
-    }
-
-    interface PlayerListClickListener {
-        void onItemClick(View view, int accountId);
     }
 }

@@ -29,7 +29,7 @@ public interface OpendotaService {
 
     // Search Dota2 Player
     @GET("search")
-    Observable<List<PlayerSearchReponse>> searchPlayer(@Query("q") String playerName);
+    Observable<List<PlayerSearchReponse>> searchPlayer(@Query("q") String searchQuery);
 
     // Get Player Profile
     @GET("players/{accountId}")

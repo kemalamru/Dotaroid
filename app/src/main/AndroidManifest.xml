@@ -23,7 +23,7 @@
         <activity android:name=".ui.player.player_list.PlayerListActivity" />
         <activity android:name=".ui.player.player_profile.PlayerProfileActivity" />
         <activity android:name=".ui.hero.hero_list.HeroListActivity" />
-        <activity android:name=".ui.hero.hero_profile.HeroProfileActivity"></activity>
+        <activity android:name=".ui.hero.hero_profile.HeroProfileActivity" />
     </application>
 
 </manifest>

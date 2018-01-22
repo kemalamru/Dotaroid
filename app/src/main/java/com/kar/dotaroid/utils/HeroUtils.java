@@ -123,8 +123,6 @@ public class HeroUtils {
             "dark_willow",
             "pangolier"};
 
-
-
     public static String getHeroName(int heroId) {
         return heroList[heroId - 1];
     }

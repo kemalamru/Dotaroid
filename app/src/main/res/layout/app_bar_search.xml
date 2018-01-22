@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/colorPrimary"
+    android:padding="8dp"
+    android:elevation="4dp">
 
-    <FrameLayout
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/search_bar_player"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:elevation="2dp">
+        android:layout_height="match_parent"
+        style="@style/MaterialSearchBarLight"
+        app:mt_placeholder="Search Dota 2 Player"/>
 
-        <RelativeLayout
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"/>
+</FrameLayout>
 
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/search_bar_player"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/MaterialSearchBarLight"
-            app:mt_placeholder="Search Dota 2 Player"
-            android:padding="12dp"/>
 
-    </FrameLayout>
-</layout>
+
+
